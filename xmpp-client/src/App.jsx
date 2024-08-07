@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import RegisterComponent from './components/Register';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import DeleteAccount from './components/DeleteAccount';
+import Contacts from './components/Contacts';
+import Chat from './components/Chat';
+import GroupChat from './components/GroupChat';
+import Presence from './components/Presence';
+import Notifications from './components/Notifications';
+import FileTransfer from './components/FileTransfer';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
+      <Switch>
+        <Route path="/register" component={RegisterComponent} />
+        <Route path="/login" component={Login} />
+        <Route path="/logout" component={Logout} />
+        <Route path="/delete" component={DeleteAccount} />
+        <Route path="/contacts" component={Contacts} />
+        <Route path="/chat" component={Chat} />
+        <Route path="/group-chat" component={GroupChat} />
+        <Route path="/presence" component={Presence} />
+        <Route path="/notifications" component={Notifications} />
+        <Route path="/file-transfer" component={FileTransfer} />
+      </Switch>
+    </Router>
+  );
+};
 
-export default App
+export default App;
