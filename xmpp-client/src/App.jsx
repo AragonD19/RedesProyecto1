@@ -1,31 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import RegisterComponent from './components/Register';
-import Login from './components/Login';
-import Logout from './components/Logout';
-import DeleteAccount from './components/DeleteAccount';
-import Contacts from './components/Contacts';
-import Chat from './components/Chat';
-import GroupChat from './components/GroupChat';
-import Presence from './components/Presence';
-import Notifications from './components/Notifications';
-import FileTransfer from './components/FileTransfer';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import RegisterComponent from "./components/Register";
+import LoginComponent from "./components/Login";
+import LogoutComponent from "./components/Logout";
+import DeleteAccountComponent from "./components/DeleteAccount";
+import ContactsComponent from "./components/Contacts";
+import ChatComponent from "./components/Chat";
+import GroupChatComponent from "./components/GroupChat";
+import PresenceComponent from "./components/Presence";
+import NotificationsComponent from "./components/Notifications";
+import FileTransferComponent from "./components/FileTransfer";
+import Home from "./components/Home";  // Importar el nuevo componente
 
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/register" component={RegisterComponent} />
-        <Route path="/login" component={Login} />
-        <Route path="/logout" component={Logout} />
-        <Route path="/delete" component={DeleteAccount} />
-        <Route path="/contacts" component={Contacts} />
-        <Route path="/chat" component={Chat} />
-        <Route path="/group-chat" component={GroupChat} />
-        <Route path="/presence" component={Presence} />
-        <Route path="/notifications" component={Notifications} />
-        <Route path="/file-transfer" component={FileTransfer} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<RegisterComponent />} />
+        <Route path="/login" element={<LoginComponent />} />
+        <Route path="/logout" element={<LogoutComponent />} />
+        <Route path="/delete" element={<DeleteAccountComponent />} />
+        <Route path="/contacts" element={<ContactsComponent />} />
+        <Route path="/chat/:contactId" element={<ChatComponent />} />
+        <Route path="/group-chat/:groupId" element={<GroupChatComponent />} />
+        <Route path="/presence" element={<PresenceComponent />} />
+        <Route path="/notifications" element={<NotificationsComponent />} />
+        <Route path="/file-transfer/:contactId" element={<FileTransferComponent />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
     </Router>
   );
 };

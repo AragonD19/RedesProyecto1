@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const Strophe = require('strophe.js').Strophe;
+
 const app = express();
 const port = 3000;
 
+app.use(cors()); // Permite todas las solicitudes CORS
 app.use(express.json());
 
 app.post('/register', (req, res) => {
