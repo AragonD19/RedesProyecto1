@@ -1,6 +1,7 @@
 // components/Login.jsx
 import React, { useState } from 'react';
-import {Strophe} from 'strophe.js';
+import { Strophe } from 'strophe.js';
+import './Login.css'; // Asegúrate de crear este archivo CSS
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -25,10 +26,10 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <div>
+    <div className="login-container">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className="login-form">
+        <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
             type="text"
@@ -38,7 +39,7 @@ const Login = ({ onLogin }) => {
             required
           />
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
             type="password"
@@ -48,8 +49,8 @@ const Login = ({ onLogin }) => {
             required
           />
         </div>
-        <button type="submit">Login</button>
-        {error && <p>{error}</p>}
+        <button type="submit" className="submit-btn">Login</button>
+        {error && <p className="error">{error}</p>}
       </form>
     </div>
   );

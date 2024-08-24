@@ -1,0 +1,29 @@
+/* components/Home.css */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #e0f7fa; /* Fondo blanco con un tono de verde claro */
+  color: #004d40; /* Texto verde oscuro */
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav li {
+  margin: 10px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #004d40;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
