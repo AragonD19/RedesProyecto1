@@ -2,22 +2,17 @@
   "name": "xmpp-client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "start": "lite-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "strophe.js": "^3.0.1"
-  },
-  "devDependencies": {
-    "lite-server": "^2.6.1",
-    "vite": "^5.4.2"
+    "@xmpp/client": "^0.13.1",
+    "@xmpp/debug": "^0.13.0",
+    "express": "^4.19.2"
   }
 }
