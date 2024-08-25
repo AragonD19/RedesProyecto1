@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Chat from './components/Chat';
-import Home from './components/Home'; // Importar el nuevo componente Home
-import SelectRecipient from './components/SelectRecipient'; // Importar el nuevo componente SelectRecipient
+import Home from './components/Home';
 
 const App = () => {
   const [connection, setConnection] = useState(null);
@@ -39,23 +38,15 @@ const App = () => {
           path="/home"
           element={
             isAuthenticated ?
-            <Home connection={connection} /> :
+            <Home connection={connection} onLogout={handleLogout} /> :
             <Navigate to="/login" />
           }
         />
         <Route
-          path="/select-recipient"
+          path="/chat/:contactJID"
           element={
             isAuthenticated ?
-            <SelectRecipient connection={connection} /> :
-            <Navigate to="/login" />
-          }
-        />
-        <Route
-          path="/chat"
-          element={
-            isAuthenticated ?
-            <Chat connection={connection} onLogout={handleLogout} /> :
+            <Chat connection={connection} /> :
             <Navigate to="/login" />
           }
         />

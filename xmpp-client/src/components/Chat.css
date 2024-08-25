@@ -1,121 +1,48 @@
 /* components/Chat.css */
-
 .chat-container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    background-color: #e8f5e9; /* Fondo verde claro */
-    padding: 20px;
-  }
-  
-  .chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  h2 {
-    color: #004d40; /* Texto verde oscuro */
-  }
-  
-  .logout-btn {
-    background-color: #004d40; /* Fondo verde oscuro */
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .logout-btn:hover {
-    background-color: #00332b; /* Fondo verde más oscuro */
-  }
-  
-  .contacts-list {
-    margin-bottom: 20px;
-  }
-  
-  .contacts-list h3 {
-    color: #004d40; /* Texto verde oscuro */
-  }
-  
-  .contacts-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .contacts-list li {
-    padding: 5px 0;
-    color: #004d40; /* Texto verde oscuro */
-  }
-  
-  .message-list {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 10px;
-  }
-  
-  .message-list .message {
-    margin-bottom: 10px;
-  }
-  
-  .message-list .sent {
-    text-align: right;
-  }
-  
-  .message-list .received {
-    text-align: left;
-  }
-  
-  .message-input {
-    display: flex;
-  }
-  
-  .message-input input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #004d40; /* Borde verde oscuro */
-    border-radius: 4px;
-    font-size: 14px;
-  }
-  
-  .message-input button {
-    background-color: #004d40; /* Fondo verde oscuro */
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .message-input button:hover {
-    background-color: #00332b; /* Fondo verde más oscuro */
-  }
-  
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
 
-  .contacts-list {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .contacts-list h3 {
-    margin-top: 0;
-  }
-  
-  .contacts-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .contacts-list li {
-    padding: 5px 0;
-  }
-  
-  .error {
-    color: red;
-  }
+.sidebar {
+  width: 250px;
+  border-right: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.home-button {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.home-button:hover {
+  background-color: #0056b3;
+}
+
+.contacts-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.chat-content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: #f9f9f9;
+}
+
+.chat-content p {
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+}

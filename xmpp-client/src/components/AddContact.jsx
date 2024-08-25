@@ -2,25 +2,22 @@
 import React, { useState } from 'react';
 import './AddContact.css'; // Asegúrate de crear este archivo CSS
 
-const AddContact = ({ connection }) => {
+const AddContact = ({ connection, onAddContact }) => {
   const [contactJID, setContactJID] = useState('');
   const [message, setMessage] = useState('');
 
   const handleAddContact = () => {
     if (contactJID.trim()) {
-      const iq = $iq({ type: 'set', to: contactJID })
-        .c('query', { xmlns: 'jabber:iq:roster' })
-        .c('item', { jid: contactJID, subscription: 'both' });
-      
-      connection.sendIQ(iq, 
-        (response) => {
-          setMessage('Contact added successfully.');
-          setContactJID('');
-        }, 
-        (error) => {
-          setMessage('Error adding contact.');
-        }
-      );
+      // Crear y enviar una solicitud de suscripción
+      const presence = $pres({ to: contactJID, type: 'subscribe' });
+      connection.send(presence);
+
+      onAddContact(contactJID); // Notificar al componente Home
+
+      setMessage('Subscription request sent.');
+      setContactJID('');
+    } else {
+      setMessage('Please enter a valid JID.');
     }
   };
 
