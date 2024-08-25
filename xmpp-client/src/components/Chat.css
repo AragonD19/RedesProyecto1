@@ -5,25 +5,25 @@
     flex-direction: column;
     height: 100vh;
     background-color: #e8f5e9; /* Fondo verde claro */
-    color: #004d40; /* Texto verde oscuro */
-    font-family: Arial, sans-serif;
+    padding: 20px;
   }
   
   .chat-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
-    background-color: #004d40; /* Fondo verde oscuro */
-    color: white;
-    border-bottom: 2px solid #004d40; /* Borde verde oscuro */
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    color: #004d40; /* Texto verde oscuro */
   }
   
   .logout-btn {
     background-color: #004d40; /* Fondo verde oscuro */
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 10px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
@@ -33,36 +33,44 @@
     background-color: #00332b; /* Fondo verde más oscuro */
   }
   
+  .contacts-list {
+    margin-bottom: 20px;
+  }
+  
+  .contacts-list h3 {
+    color: #004d40; /* Texto verde oscuro */
+  }
+  
+  .contacts-list ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .contacts-list li {
+    padding: 5px 0;
+    color: #004d40; /* Texto verde oscuro */
+  }
+  
   .message-list {
     flex: 1;
-    padding: 10px;
     overflow-y: auto;
-    background-color: #ffffff; /* Fondo blanco */
-    border-top: 2px solid #004d40; /* Borde verde oscuro */
-    border-bottom: 2px solid #004d40; /* Borde verde oscuro */
-  }
-  
-  .message {
     margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 8px;
   }
   
-  .message.sent {
-    background-color: #c8e6c9; /* Fondo verde muy claro para mensajes enviados */
+  .message-list .message {
+    margin-bottom: 10px;
+  }
+  
+  .message-list .sent {
     text-align: right;
   }
   
-  .message.received {
-    background-color: #ffffff; /* Fondo blanco para mensajes recibidos */
+  .message-list .received {
     text-align: left;
   }
   
   .message-input {
     display: flex;
-    padding: 10px;
-    background-color: #ffffff; /* Fondo blanco */
-    border-top: 2px solid #004d40; /* Borde verde oscuro */
   }
   
   .message-input input {
@@ -78,12 +86,36 @@
     color: white;
     border: none;
     padding: 10px;
-    margin-left: 10px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 14px;
   }
   
   .message-input button:hover {
     background-color: #00332b; /* Fondo verde más oscuro */
   }
   
+
+  .contacts-list {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .contacts-list h3 {
+    margin-top: 0;
+  }
+  
+  .contacts-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .contacts-list li {
+    padding: 5px 0;
+  }
+  
+  .error {
+    color: red;
+  }

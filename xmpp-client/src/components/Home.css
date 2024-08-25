@@ -1,29 +1,28 @@
 /* components/Home.css */
+
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
-  background-color: #e0f7fa; /* Fondo blanco con un tono de verde claro */
-  color: #004d40; /* Texto verde oscuro */
+  padding: 20px;
+  background-color: #e8f5e9; /* Fondo verde claro */
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
+.home-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-nav li {
-  margin: 10px 0;
-}
-
-a {
+.home-btn {
+  background-color: #004d40; /* Fondo verde oscuro */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
   text-decoration: none;
-  color: #004d40;
-  font-weight: bold;
+  font-size: 16px;
 }
 
-a:hover {
-  text-decoration: underline;
+.home-btn:hover {
+  background-color: #00332b; /* Fondo verde más oscuro */
 }

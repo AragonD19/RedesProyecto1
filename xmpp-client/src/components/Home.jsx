@@ -1,20 +1,18 @@
 // components/Home.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css'; // Asegúrate de crear este archivo CSS
+import AddContact from './AddContact';
+import './Home.css'; // Asegúrate de tener un archivo CSS para Home
 
-const Home = () => {
+const Home = ({ connection }) => {
   return (
     <div className="home-container">
-      <h2>Welcome to the Home Page</h2>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/chat">Go to Chat</Link>
-          </li>
-          {/* Agrega más enlaces a funcionalidades aquí */}
-        </ul>
-      </nav>
+      <h1>Welcome to Chat App</h1>
+      <div className="home-buttons">
+        <Link to="/select-recipient" className="home-btn">Select Recipient</Link>
+        <Link to="/chat" className="home-btn">Go to Chat</Link>
+        <AddContact connection={connection} />
+      </div>
     </div>
   );
 };

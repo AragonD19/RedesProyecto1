@@ -1,11 +1,10 @@
+// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Chat from './components/Chat';
 import Home from './components/Home'; // Importar el nuevo componente Home
-
-import { Buffer } from 'buffer';
-window.Buffer = Buffer;
+import SelectRecipient from './components/SelectRecipient'; // Importar el nuevo componente SelectRecipient
 
 const App = () => {
   const [connection, setConnection] = useState(null);
@@ -40,7 +39,15 @@ const App = () => {
           path="/home"
           element={
             isAuthenticated ?
-            <Home /> :
+            <Home connection={connection} /> :
+            <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/select-recipient"
+          element={
+            isAuthenticated ?
+            <SelectRecipient connection={connection} /> :
             <Navigate to="/login" />
           }
         />
