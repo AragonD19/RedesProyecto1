@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
-import Chat from './components/Chat';
-import Home from './components/Home'; // Importar el nuevo componente Home
+
 const App = () => {
   const [connection, setConnection] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,9 +13,27 @@ const App = () => {
     setIsAuthenticated(true);
   };
 
+  const handleRegister = (conn, username, password) => {
+    conn.send(
+      $iq({ type: 'set', id: 'register' })
+        .c('query', { xmlns: 'jabber:iq:register' })
+        .c('username').t(username).up()
+        .c('password').t(password)
+    );
+  };
+
+
+  const handleDeleteAccount = () => {
+    if (connection) {
+      connection.disconnect();
+    }
+    setConnection(null);
+    setIsAuthenticated(false);
+  };
+
   const handleLogout = () => {
     if (connection) {
-      connection.disconnect(); // Desconectar la conexión XMPP
+      connection.disconnect();
     }
     setConnection(null);
     setIsAuthenticated(false);
@@ -29,24 +46,12 @@ const App = () => {
           path="/login"
           element={
             isAuthenticated ?
-            <Navigate to="/home" /> :
-            <Login onLogin={handleLogin} />
-          }
-        />
-        <Route
-          path="/home"
-          element={
-            isAuthenticated ?
-            <Home connection={connection} onLogout={handleLogout}/> :
-            <Navigate to="/login" />
-          }
-        />
-        <Route
-          path="/chat"
-          element={
-            isAuthenticated ?
-            <Chat connection={connection} onLogout={handleLogout} /> :
-            <Navigate to="/login" />
+            <Navigate to="/" /> :
+            <Login 
+              onLogin={handleLogin} 
+              onRegister={handleRegister}
+              onDeleteAccount={handleDeleteAccount} 
+            />
           }
         />
         <Route path="/" element={<Navigate to="/login" />} />
