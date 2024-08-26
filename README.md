@@ -6,21 +6,8 @@ Este proyecto es un cliente de mensajería instantánea que implementa el protoc
 
 El proyecto sigue la siguiente estructura:
 
-xmpp-client/
-├── src/
-│   ├── App.css
-│   ├── App.jsx
-│   ├── index.css
-│   ├── main.jsx
-│   └── components/
-│       ├── Login.jsx
-│       ├── Login.css
-│       ├── Chat.jsx
-│       ├── ContactList.jsx
-│       ├── ContactDetails.jsx
-│       └── ...
-├── index.html
-├── vite.config.js
+![image](https://github.com/user-attachments/assets/07431b54-3385-49d6-b47d-22c1de0e382a)
+
 
 ## Funcionalidades
 
