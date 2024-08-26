@@ -1,9 +1,9 @@
-// App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
-import ContactList from './components/ContactList'; // Nuevo componente para la lista de contactos
-import {Strophe} from 'strophe.js';
+import ContactList from './components/ContactList';
+import ChatRoom from './components/ChatRoom'; // Importa el componente ChatRoom
+import PresenceStatus from './components/PresenceStatus'; // Importa el componente PresenceStatus
 
 const App = () => {
   const [connection, setConnection] = useState(null);
@@ -13,6 +13,7 @@ const App = () => {
   useEffect(() => {
     if (connection) {
       connection.addHandler(handlePresence, null, 'presence');
+      connection.addHandler(handleMessage, null, 'message');
 
       function handlePresence(presence) {
         const from = Strophe.getBareJidFromJid(presence.getAttribute('from'));
@@ -35,44 +36,32 @@ const App = () => {
         }
         return true;
       }
+
+      function handleMessage(msg) {
+        if (msg.getAttribute('type') === 'groupchat') {
+          // Manejar mensajes de grupo aquí si es necesario
+        }
+        return true;
+      }
     }
   }, [connection]);
 
   const handleLogin = (conn) => {
+    console.log('handleLogin: conn ==>> ', conn);
     setConnection(conn);
     setIsAuthenticated(true);
   };
 
-  const handleRegister = (username, password) => {
-    if (connection) {
-      const iq = $iq({ type: 'set', id: 'register' })
-        .c('query', { xmlns: 'jabber:iq:register' })
-        .c('username').t(username).up()
-        .c('password').t(password);
-
-      connection.sendIQ(iq, () => {
-        console.log('Registration successful');
-        setIsAuthenticated(true);
-      }, (error) => {
-        console.error('Error registering account:', error);
-      });
-    }
+  const handleRegister = (conn, username, password) => {
+    // Manejo después de registrar la cuenta
   };
 
   const handleDeleteAccount = () => {
     if (connection) {
-      const iq = $iq({ type: 'set', id: 'register' })
-        .c('query', { xmlns: 'jabber:iq:register' })
-        .c('username').t(connection.authcid).up()
-        .c('password').t(connection.authpass);
-
-      connection.sendIQ(iq, () => {
-        console.log('Account deleted successfully');
-        handleLogout();
-      }, (error) => {
-        console.error('Error deleting account:', error);
-      });
+      connection.disconnect();
     }
+    setConnection(null);
+    setIsAuthenticated(false);
   };
 
   const handleLogout = () => {
@@ -102,11 +91,12 @@ const App = () => {
           path="/"
           element={
             isAuthenticated ?
-            <ContactList 
-              connection={connection} 
-              contacts={contacts} 
-              setContacts={setContacts} 
-            /> : 
+            <>
+              <button onClick={handleLogout}>Logout</button> {/* Botón de Logout */}
+              <ContactList connection={connection} setContacts={setContacts} />
+              <PresenceStatus connection={connection} />
+              <ChatRoom connection={connection} /> {/* Añade el componente ChatRoom */}
+            </> :
             <Navigate to="/login" />
           }
         />

@@ -85,6 +85,11 @@ const ContactList = ({ connection, setContacts }) => {
     }
   };
 
+  const handleDeleteContact = (jid) => {
+    setContacts(contacts => contacts.filter(contact => contact.jid !== jid));
+    // Aquí podrías agregar la lógica para enviar un "unsubscribe" al servidor si es necesario.
+  };
+  
   return (
     <div className="contact-list">
       <h2>Contacts</h2>
@@ -92,7 +97,9 @@ const ContactList = ({ connection, setContacts }) => {
         {contacts.map(contact => (
           <li key={contact.jid} onClick={() => setSelectedContact(contact)}>
             {contact.name} - {contact.status}
+            <button onClick={() => handleDeleteContact(contact.jid)}>Eliminar</button>
           </li>
+
         ))}
       </ul>
       <div>
