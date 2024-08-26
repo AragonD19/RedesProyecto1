@@ -6,7 +6,8 @@ Este proyecto es un cliente de mensajería instantánea que implementa el protoc
 
 El proyecto sigue la siguiente estructura:
 
-![image](https://github.com/user-attachments/assets/07431b54-3385-49d6-b47d-22c1de0e382a)
+![image](https://github.com/user-attachments/assets/b103de0e-11da-4e9c-aa05-366a8b0acebd)
+
 
 
 ## Funcionalidades
