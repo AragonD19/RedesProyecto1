@@ -1,66 +1,31 @@
 // components/Home.jsx
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AddContact from './AddContact';
-import ContactList from './ContactList';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = ({ connection, onLogout }) => {
-  const [showContacts, setShowContacts] = useState(false);
-  const [contacts, setContacts] = useState([]);
-  const [selectedContact, setSelectedContact] = useState('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Cargar contactos desde localStorage al montar el componente
-    const storedContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-    setContacts(storedContacts);
-  }, []);
-
-  const handleShowContacts = () => {
-    setShowContacts(!showContacts);
-  };
-
-  const addContactToList = (contactJID) => {
-    setContacts((prevContacts) => {
-      if (prevContacts.includes(contactJID)) {
-        return prevContacts; // Contacto ya existe
-      }
-      const updatedContacts = [...prevContacts, contactJID];
-      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-      return updatedContacts;
-    });
-  };
-
-  const handleSelectContact = (contactJID) => {
-    setSelectedContact(contactJID);
-    navigate(`/chat/${contactJID}`);
-  };
-
-  const handleRemoveContact = (contactJID) => {
-    setContacts((prevContacts) => {
-      const updatedContacts = prevContacts.filter(contact => contact !== contactJID);
-      localStorage.setItem('contacts', JSON.stringify(updatedContacts));
-      return updatedContacts;
-    });
-  };
+  const [recipient, setRecipient] = useState('');
 
   return (
     <div className="home-container">
       <h1>Welcome to Chat App</h1>
       <div className="home-buttons">
-        <button onClick={handleShowContacts} className="home-btn">
-          {showContacts ? 'Hide Contacts' : 'Show Contacts'}
-        </button>
-        {showContacts && (
-          <ContactList
-            contacts={contacts}
-            onSelectContact={handleSelectContact}
-            onRemoveContact={handleRemoveContact}
+        <div className="chat-selection">
+          <input
+            type="text"
+            placeholder="Enter username to chat with"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
           />
-        )}
-        <AddContact connection={connection} onAddContact={addContactToList} />
-        <button onClick={onLogout} className="home-btn">Logout</button>
+          <Link
+            to={`/chat?to=${recipient}`}
+            className="home-btn"
+            style={{ pointerEvents: recipient ? 'auto' : 'none', opacity: recipient ? 1 : 0.5 }}
+          >
+            Start Chat
+          </Link>
+        </div>
+        <button className="logout-btn" onClick={onLogout}>Logout</button>
       </div>
     </div>
   );

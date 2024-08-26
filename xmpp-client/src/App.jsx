@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Chat from './components/Chat';
-import Home from './components/Home';
-
+import Home from './components/Home'; // Importar el nuevo componente Home
 const App = () => {
   const [connection, setConnection] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,15 +37,15 @@ const App = () => {
           path="/home"
           element={
             isAuthenticated ?
-            <Home connection={connection} onLogout={handleLogout} /> :
+            <Home connection={connection} onLogout={handleLogout}/> :
             <Navigate to="/login" />
           }
         />
         <Route
-          path="/chat/:contactJID"
+          path="/chat"
           element={
             isAuthenticated ?
-            <Chat connection={connection} /> :
+            <Chat connection={connection} onLogout={handleLogout} /> :
             <Navigate to="/login" />
           }
         />

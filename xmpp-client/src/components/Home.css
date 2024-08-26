@@ -1,28 +1,47 @@
-/* components/Home.css */
-
+/* Home.css */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #e8f5e9; /* Fondo verde claro */
+  justify-content: center;
+  height: 100vh;
+  background-color: #eaeaea;
 }
 
 .home-buttons {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .home-btn {
-  background-color: #004d40; /* Fondo verde oscuro */
-  color: white;
   padding: 10px 20px;
-  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
   text-decoration: none;
+  border-radius: 4px;
+  display: inline-block;
   font-size: 16px;
 }
 
 .home-btn:hover {
-  background-color: #00332b; /* Fondo verde más oscuro */
+  background-color: #0056b3;
+}
+
+.chat-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-selection input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+}
+
+.chat-selection .home-btn {
+  pointer-events: none;
+  opacity: 0.5;
 }
