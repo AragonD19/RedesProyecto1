@@ -60,3 +60,11 @@ Para instalar y ejecutar el proyecto en tu máquina local, sigue estos pasos:
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd xmpp-client
+
+2. Instala las dependencias:
+
+npm install
+
+3. Inicia el servidor de desarrollo:
+
+npm run dev
