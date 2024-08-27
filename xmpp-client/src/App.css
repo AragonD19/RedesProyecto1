@@ -3,13 +3,15 @@
 .app-container {
   display: flex;
   height: 100vh;
+  background-color: #e0f7fa; /* Fondo acorde al login */
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #f4f4f4;
+  width: 300px; /* Aumentado para mejorar la visibilidad */
+  background-color: #004d40; /* Fondo verde oscuro como en login */
   padding: 1rem;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  color: #ffffff; /* Texto blanco para contraste */
 }
 
 .sidebar nav ul {
@@ -23,7 +25,7 @@
 
 .sidebar nav ul li a {
   text-decoration: none;
-  color: #333;
+  color: #ffffff; /* Texto blanco */
   font-weight: bold;
 }
 
@@ -37,6 +39,13 @@
 
 .main-content {
   flex: 1;
-  padding: 1rem;
+  padding: 2rem; /* Más espaciado para un diseño más aireado */
   overflow-y: auto;
+  background-color: #ffffff; /* Fondo blanco para contraste */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-left: 1rem;
 }
+
+
+

@@ -12,19 +12,18 @@ const Login = ({ onLogin, onRegister, onDeleteAccount }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const connection = new Strophe.Connection('ws://alumchat.lol:7070/ws/');
 
     if (isDeleting) {
-      // Eliminar cuenta
-      const connection = new Strophe.Connection('ws://alumchat.lol:7070/ws/');
       connection.connect(username + '@alumchat.lol', password, (status) => {
         if (status === Strophe.Status.CONNECTED) {
-          console.log('Connected');
           connection.send(
             $iq({ type: 'set', id: 'delete' })
               .c('query', { xmlns: 'jabber:iq:register' })
               .c('remove')
           );
           console.log('Account deletion request sent');
+          // Optionally redirect or notify user
         } else if (status === Strophe.Status.AUTHFAIL) {
           setError('Authentication failed');
         } else if (status === Strophe.Status.ERROR) {
@@ -32,11 +31,8 @@ const Login = ({ onLogin, onRegister, onDeleteAccount }) => {
         }
       });
     } else if (isRegistering) {
-      // Registro de cuenta
-      const connection = new Strophe.Connection('ws://alumchat.lol:7070/ws/');
       connection.connect(username + '@alumchat.lol', password, (status) => {
         if (status === Strophe.Status.CONNECTED) {
-          console.log('Connected');
           connection.send(
             $iq({ type: 'set', id: 'register' })
               .c('query', { xmlns: 'jabber:iq:register' })
@@ -45,6 +41,7 @@ const Login = ({ onLogin, onRegister, onDeleteAccount }) => {
           );
           console.log('Registration request sent');
           onRegister(connection, username, password);
+          // Optionally redirect or notify user
         } else if (status === Strophe.Status.AUTHFAIL) {
           setError('Authentication failed');
         } else if (status === Strophe.Status.ERROR) {
@@ -52,11 +49,8 @@ const Login = ({ onLogin, onRegister, onDeleteAccount }) => {
         }
       });
     } else {
-      // Inicio de sesión
-      const connection = new Strophe.Connection('ws://alumchat.lol:7070/ws/');
       connection.connect(username + '@alumchat.lol', password, (status) => {
         if (status === Strophe.Status.CONNECTED) {
-          console.log('Connected');
           onLogin(connection);
         } else if (status === Strophe.Status.AUTHFAIL) {
           setError('Authentication failed');

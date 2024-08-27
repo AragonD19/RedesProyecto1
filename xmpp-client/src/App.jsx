@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import ContactList from './components/ContactList';
-import ChatRoom from './components/ChatRoom'; // Importa el componente ChatRoom
 import PresenceStatus from './components/PresenceStatus'; // Importa el componente PresenceStatus
+import ChatPage from './components/ChatPage';
 
 const App = () => {
   const [connection, setConnection] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [contacts, setContacts] = useState([]);
+  const [navigateTo, setNavigateTo] = useState(null); // Estado para la navegación
 
   useEffect(() => {
     if (connection) {
@@ -52,8 +53,21 @@ const App = () => {
     setIsAuthenticated(true);
   };
 
-  const handleRegister = (conn, username, password) => {
-    // Manejo después de registrar la cuenta
+  const handleRegister = (username, password) => {
+    if (connection) {
+      const registerIQ = $iq({ type: 'set', to: 'alumchat.lol' })
+        .c('query', { xmlns: 'jabber:iq:register' })
+        .c('username').t(username).up()
+        .c('password').t(password);
+      
+      connection.sendIQ(registerIQ, (result) => {
+        console.log('Registration successful:', result);
+        // Redirect to login or handle successful registration
+      }, (error) => {
+        console.error('Registration failed:', error);
+        // Handle registration error
+      });
+    }
   };
 
   const handleDeleteAccount = () => {
@@ -92,15 +106,24 @@ const App = () => {
           element={
             isAuthenticated ?
             <>
-              <button onClick={handleLogout}>Logout</button> {/* Botón de Logout */}
+              <button onClick={handleLogout}>Logout</button>
               <ContactList connection={connection} setContacts={setContacts} />
               <PresenceStatus connection={connection} />
-              <ChatRoom connection={connection} /> {/* Añade el componente ChatRoom */}
             </> :
             <Navigate to="/login" />
           }
         />
+        <Route
+          path="/chat/:jid"
+          element={
+            isAuthenticated ?
+            <ChatPage connection={connection} setContacts={setContacts} /> :
+            <Navigate to="/login" />
+          }
+        />
       </Routes>
+      {/* Redirección condicional basada en el estado de navegación */}
+      {navigateTo && <Navigate to={navigateTo} />}
     </Router>
   );
 };

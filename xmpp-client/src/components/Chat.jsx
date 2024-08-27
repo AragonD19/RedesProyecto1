@@ -1,11 +1,15 @@
-// components/Chat.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Strophe } from 'strophe.js';
 
 const Chat = ({ contact, connection }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
   const sendMessage = () => {
+    if (message.trim() === '') {
+      return; // No enviar el mensaje si está vacío
+    }
+
     const messageElement = $msg({
       to: contact.jid,
       type: 'chat'
@@ -16,14 +20,25 @@ const Chat = ({ contact, connection }) => {
     setMessage('');
   };
 
-  connection.addHandler((message) => {
-    const from = Strophe.getBareJidFromJid(message.getAttribute('from'));
-    const body = message.getElementsByTagName('body')[0];
-    if (body) {
-      setMessages([...messages, { from, text: body.textContent }]);
-    }
-    return true;
-  }, null, 'message', 'chat');
+  useEffect(() => {
+    const handleMessage = (msg) => {
+      if (msg.getAttribute('type') === 'chat') {
+        const from = Strophe.getBareJidFromJid(msg.getAttribute('from'));
+        const body = msg.getElementsByTagName('body')[0];
+        if (body) {
+          setMessages(prevMessages => [...prevMessages, { from, text: body.textContent }]);
+        }
+      }
+      return true;
+    };
+
+    const messageHandler = connection.addHandler(handleMessage, null, 'message', 'chat');
+
+    return () => {
+      // Remove the handler on component unmount
+      connection.deleteHandler(messageHandler);
+    };
+  }, [connection]);
 
   return (
     <div className="chat">
