@@ -1,3 +1,4 @@
+// Chat.jsx
 import React, { useState, useEffect } from 'react';
 import { Strophe } from 'strophe.js';
 
@@ -35,7 +36,6 @@ const Chat = ({ contact, connection }) => {
     const messageHandler = connection.addHandler(handleMessage, null, 'message', 'chat');
 
     return () => {
-      // Remove the handler on component unmount
       connection.deleteHandler(messageHandler);
     };
   }, [connection]);

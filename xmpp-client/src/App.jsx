@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
@@ -10,6 +11,7 @@ const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [navigateTo, setNavigateTo] = useState(null); // Estado para la navegación
+  const [notifications, setNotifications] = useState([]); // Estado para manejar notificaciones
 
   useEffect(() => {
     if (connection) {
@@ -39,16 +41,19 @@ const App = () => {
       }
 
       function handleMessage(msg) {
-        if (msg.getAttribute('type') === 'groupchat') {
-          // Manejar mensajes de grupo aquí si es necesario
+        const from = Strophe.getBareJidFromJid(msg.getAttribute('from'));
+        const body = msg.getElementsByTagName('body')[0];
+
+        if (body && !contacts.some(contact => contact.jid === from)) {
+          // Si el remitente no está en la lista de contactos, muestra una notificación
+          setNotifications(prev => [...prev, { from, text: body.textContent }]);
         }
         return true;
       }
     }
-  }, [connection]);
+  }, [connection, contacts]);
 
   const handleLogin = (conn) => {
-    console.log('handleLogin: conn ==>> ', conn);
     setConnection(conn);
     setIsAuthenticated(true);
   };
@@ -62,10 +67,8 @@ const App = () => {
       
       connection.sendIQ(registerIQ, (result) => {
         console.log('Registration successful:', result);
-        // Redirect to login or handle successful registration
       }, (error) => {
         console.error('Registration failed:', error);
-        // Handle registration error
       });
     }
   };
@@ -84,6 +87,11 @@ const App = () => {
     }
     setConnection(null);
     setIsAuthenticated(false);
+  };
+
+  const openChatWithUnknown = (jid) => {
+    // Navegar al chat con el JID del remitente desconocido
+    setNavigateTo(`/chat/${jid}`);
   };
 
   return (
@@ -109,6 +117,15 @@ const App = () => {
               <button onClick={handleLogout}>Logout</button>
               <ContactList connection={connection} setContacts={setContacts} />
               <PresenceStatus connection={connection} />
+              {/* Mostrar notificaciones */}
+              <div className="notifications">
+                {notifications.map((notification, index) => (
+                  <div key={index} className="notification">
+                    <p>New message from {notification.from}: {notification.text}</p>
+                    <button onClick={() => openChatWithUnknown(notification.from)}>Chat</button>
+                  </div>
+                ))}
+              </div>
             </> :
             <Navigate to="/login" />
           }
