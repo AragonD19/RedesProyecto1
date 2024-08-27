@@ -69,3 +69,34 @@ npm install
 3. Inicia el servidor de desarrollo:
 
 npm run dev
+
+
+## Checklist de Funcionalidades
+
+### Administración de Cuentas (20% del funcionamiento)
+- [ ] **Registrar una nueva cuenta en el servidor**
+  - El usuario puede crear una nueva cuenta en el servidor XMPP.
+- [ ] **Iniciar sesión con una cuenta**
+  - El usuario puede iniciar sesión en el servidor utilizando sus credenciales.
+- [ ] **Cerrar sesión con una cuenta**
+  - El usuario puede cerrar sesión de forma segura.
+- [ ] **Eliminar la cuenta del servidor**
+  - El usuario puede eliminar su cuenta del servidor de manera permanente.
+
+### Comunicación (80% del funcionamiento)
+- [ ] **Mostrar todos los usuarios/contactos y su estado**
+  - Lista de contactos y sus estados de presencia (en línea, ausente, etc.).
+- [ ] **Agregar un usuario a los contactos**
+  - El usuario puede añadir otros usuarios a su lista de contactos.
+- [ ] **Mostrar detalles de contacto de un usuario**
+  - Visualizar la información detallada de un contacto seleccionado.
+- [ ] **Comunicación 1 a 1 con cualquier usuario/contacto**
+  - Enviar y recibir mensajes de texto en tiempo real con un contacto específico.
+- [ ] **Participar en conversaciones grupales**
+  - Enviar y recibir mensajes en grupos, con múltiples participantes.
+- [ ] **Definir mensaje de presencia**
+  - Configurar y actualizar el mensaje de presencia personal (por ejemplo, ocupado, disponible).
+- [ ] **Enviar/recibir notificaciones**
+  - Enviar y recibir notificaciones sobre eventos importantes (nuevos mensajes, cambios de estado).
+- [ ] **Enviar/recibir archivos**
+  - Compartir y recibir archivos con otros usuarios a través del chat.
