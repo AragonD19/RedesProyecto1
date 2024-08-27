@@ -100,3 +100,4 @@ npm run dev
   - Enviar y recibir notificaciones sobre eventos importantes (nuevos mensajes, cambios de estado).
 - [ ] **Enviar/recibir archivos**
   - Compartir y recibir archivos con otros usuarios a través del chat.
+  
