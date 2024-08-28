@@ -96,7 +96,7 @@ npm run dev
   - Enviar y recibir mensajes en grupos, con múltiples participantes.
 - [x] **Definir mensaje de presencia**
   - Configurar y actualizar el mensaje de presencia personal (por ejemplo, ocupado, disponible).
-- [ ] **Enviar/recibir notificaciones**
+- [x] **Enviar/recibir notificaciones**
   - Enviar y recibir notificaciones sobre eventos importantes (nuevos mensajes, cambios de estado).
 - [ ] **Enviar/recibir archivos**
   - Compartir y recibir archivos con otros usuarios a través del chat.

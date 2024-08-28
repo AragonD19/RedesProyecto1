@@ -45,8 +45,8 @@ const App = () => {
         const body = msg.getElementsByTagName('body')[0];
 
         if (body && !contacts.some(contact => contact.jid === from)) {
-          // Si el remitente no está en la lista de contactos, muestra una notificación
-          setNotifications(prev => [...prev, { from, text: body.textContent }]);
+          alert(`New message from ${from}: ${body.textContent}`);
+          setNavigateTo(`/chat/${from}`);
         }
         return true;
       }

@@ -95,16 +95,23 @@ const ContactList = ({ connection, setContacts }) => {
   const handleDeleteContact = (jid, e) => {
     e.stopPropagation(); // Evita que el clic en el botón propague el evento al li
     if (connection) {
-      // Enviar solicitud de unsubscribe para eliminar el contacto del servidor
-      const unsubscribe = $pres({ to: jid, type: 'unsubscribe' });
-      connection.send(unsubscribe);
+      // Enviar solicitud de eliminar el contacto del servidor
+      const iq = $iq({ type: 'set' })
+        .c('query', { xmlns: 'jabber:iq:roster' })
+        .c('item', { jid: jid, subscription: 'remove' });
   
-      // Eliminar el contacto de la lista local
-      setLocalContacts(contacts => contacts.filter(contact => contact.jid !== jid));
-      setContacts(contacts => contacts.filter(contact => contact.jid !== jid));
-      setSelectedContact(null); // Opcionalmente, deseleccionar el contacto
+      connection.sendIQ(iq, (result) => {
+        console.log('Contact successfully removed:', result);
+        // Eliminar el contacto de la lista local
+        setLocalContacts(contacts => contacts.filter(contact => contact.jid !== jid));
+        setContacts(contacts => contacts.filter(contact => contact.jid !== jid));
+        setSelectedContact(null); // Opcionalmente, deseleccionar el contacto
+      }, (error) => {
+        console.error('Error removing contact:', error);
+      });
     }
   };
+  
 
   const handleContactClick = (contact) => {
     setSelectedContact(contact);
