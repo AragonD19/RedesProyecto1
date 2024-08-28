@@ -1,10 +1,12 @@
-// App.jsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import ContactList from './components/ContactList';
-import PresenceStatus from './components/PresenceStatus'; // Importa el componente PresenceStatus
+import PresenceStatus from './components/PresenceStatus';
 import ChatPage from './components/ChatPage';
+import GroupList from './components/GroupList'; // Importa el componente GroupList
+import GroupChat from './components/GroupChat'; // Importa el componente GroupChat
+import GroupPage from './components/GroupPage'; // Importa el componente GroupPage
 
 const App = () => {
   const [connection, setConnection] = useState(null);
@@ -94,6 +96,10 @@ const App = () => {
     setNavigateTo(`/chat/${jid}`);
   };
 
+  const goToGroupPage = () => {
+    setNavigateTo('/groups');
+  };
+
   return (
     <Router>
       <Routes>
@@ -115,9 +121,9 @@ const App = () => {
             isAuthenticated ?
             <>
               <button onClick={handleLogout}>Logout</button>
+              <button onClick={goToGroupPage}>Public Groups</button> {/* Botón para ir a la página de grupos */}
               <ContactList connection={connection} setContacts={setContacts} />
               <PresenceStatus connection={connection} />
-              {/* Mostrar notificaciones */}
               <div className="notifications">
                 {notifications.map((notification, index) => (
                   <div key={index} className="notification">
@@ -138,8 +144,23 @@ const App = () => {
             <Navigate to="/login" />
           }
         />
+        <Route
+          path="/groups"
+          element={
+            isAuthenticated ?
+            <GroupPage connection={connection} /> :
+            <Navigate to="/login" />
+          }
+        />
+        <Route
+          path="/group/:jid"
+          element={
+            isAuthenticated ?
+            <GroupChat connection={connection} /> :
+            <Navigate to="/login" />
+          }
+        />
       </Routes>
-      {/* Redirección condicional basada en el estado de navegación */}
       {navigateTo && <Navigate to={navigateTo} />}
     </Router>
   );
